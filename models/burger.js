@@ -18,20 +18,29 @@ var Burgers = connection.define('burgers', {
   timestamps: false
 });
 
+Burgers.sync();
+
 var burger = {
   all: function(cb) {
-    orm.all("burgers", function(res) {
-      cb(res);
-    });
+    Burgers.all({}).then(function(response){
+      cb(response);
+    })
   },
-  create: function(name, cb) {
-    orm.create("burgers", ["burger_name", "devoured"], [name, false], cb);
-  },
+  create: function(burger_name, cb) {
+    Burgers.create({
+      burger_name: burger_name
+    }).then(function(){
+      cb();
+    })
+    },
   update: function(id, cb) {
-    var condition = "id=" + id;
-    orm.update("burgers", {
+    Burgers.update({
       devoured: true
-    }, condition, cb);
+    }, {
+      where: {id: id}
+    }).then(function(){
+      cb();
+    });
   }
 };
 
