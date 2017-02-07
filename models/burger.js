@@ -1,4 +1,22 @@
-var orm = require("../config/orm");
+var Sequelize = require('sequelize');
+
+var connection = require('../config/connection.js');
+
+var Burgers = connection.define('burgers', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  burger_name: {
+    type: Sequelize.STRING
+  },
+  devoured: {
+    type:Sequelize.BOOLEAN
+  } 
+}, {
+  timestamps: false
+});
 
 var burger = {
   all: function(cb) {
