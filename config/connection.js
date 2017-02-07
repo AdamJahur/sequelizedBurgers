@@ -1,4 +1,4 @@
-var sequelize = require('sequelize');
+var Sequelize = require('sequelize');
 
 var env;
 if (process.env.JAWSDB)
